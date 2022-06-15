@@ -12,8 +12,8 @@ public class PacienteRepository implements IRepository<Paciente> {
 
     private List<Paciente> pacientes;
 
-    public PacienteRepository(List<Paciente> pacientes) {
-        this.pacientes = pacientes;
+    public PacienteRepository() {
+        this.pacientes = cargarPacientes();
     }
 
     @Override
