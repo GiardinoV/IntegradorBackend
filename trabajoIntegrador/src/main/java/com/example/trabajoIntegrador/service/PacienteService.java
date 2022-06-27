@@ -1,37 +1,39 @@
 package com.example.trabajoIntegrador.service;
 
-import com.example.trabajoIntegrador.model.Odontologo;
-import com.example.trabajoIntegrador.model.Paciente;
-import com.example.trabajoIntegrador.repository.IRepository;
+import com.example.trabajoIntegrador.entity.Paciente;
+import com.example.trabajoIntegrador.repository.PacienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class PacienteService {
 
-    public IRepository<Paciente> pacienteRepository;
-
-    public PacienteService(IRepository<Paciente> pacienteRepository) {
-        this.pacienteRepository = pacienteRepository;
-    }
+    @Autowired
+    PacienteRepository pacienteRepository;
 
     public Paciente agregarPaciente(Paciente paciente){
-        return this.pacienteRepository.agregar(paciente);
+        return this.pacienteRepository.save(paciente);
     }
 
     public List<Paciente> listarPacientes(){
-        List<Paciente> pacientes = pacienteRepository.listar();
-        return pacientes;
+        return pacienteRepository.findAll();
     }
 
     public Paciente modificarPaciente(Paciente paciente){
-        return pacienteRepository.modificar(paciente);
+        if(buscarPaciente(paciente.getId()).isPresent()){
+            return pacienteRepository.save(paciente);
+        }else
+            return null;
     }
 
-    public Boolean eliminarPaciente(Integer id){
-        return pacienteRepository.eliminar(id);
+    public void eliminarPaciente(Long id){
+        pacienteRepository.deleteById(id);
     }
 
-    public Paciente buscarPaciente(Integer id){
-        return pacienteRepository.buscar(id);
+    public Optional<Paciente> buscarPaciente(Long id){
+        return pacienteRepository.findById(id);
     }
 }

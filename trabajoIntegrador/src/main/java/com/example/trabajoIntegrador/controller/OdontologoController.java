@@ -1,7 +1,8 @@
 package com.example.trabajoIntegrador.controller;
-import com.example.trabajoIntegrador.model.Odontologo;
-import com.example.trabajoIntegrador.repository.OdontologoRepository;
+import com.example.trabajoIntegrador.entity.Odontologo;
+import com.example.trabajoIntegrador.entity.Paciente;
 import com.example.trabajoIntegrador.service.OdontologoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +13,17 @@ import java.util.List;
 @RequestMapping("odontologos")
 public class OdontologoController {
 
-    private OdontologoService odontologoService = new OdontologoService((new OdontologoRepository()));
+    @Autowired
+    private OdontologoService odontologoService;
 
     @GetMapping
-    public List<Odontologo> listarOdontologos() {
-        return odontologoService.listarOdontolgos();
+    public ResponseEntity<List<Odontologo>> listarOdontologos() {
+        return ResponseEntity.ok(odontologoService.listarOdontolgos());
+    }
+
+    @PostMapping
+    public ResponseEntity<Odontologo> registrarOdontologo(@RequestBody Odontologo odontologo){
+        return ResponseEntity.ok(odontologoService.agregarOdontologo(odontologo));
     }
 
     @PutMapping
@@ -25,18 +32,23 @@ public class OdontologoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity eliminarOdontologo (@PathVariable Integer id) {
+    public ResponseEntity eliminarOdontologo (@PathVariable Long id) {
         ResponseEntity response = null;
-        if (odontologoService.eliminarOdontologo(id))
+        if (odontologoService.buscarOdontologo(id).isPresent()){
+            odontologoService.eliminarOdontologo(id);
             response = ResponseEntity.status(HttpStatus.OK).build();
-        else
+        }else
             response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         return response;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity buscarOdontolgo(@PathVariable Integer id){
-        return ResponseEntity.ok(odontologoService.buscarOdontologo(id));
+    public ResponseEntity<Odontologo> buscarOdontolgo(@PathVariable Long id){
+        if(odontologoService.buscarOdontologo(id).isPresent()){
+            return ResponseEntity.ok(odontologoService.buscarOdontologo(id).get());
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

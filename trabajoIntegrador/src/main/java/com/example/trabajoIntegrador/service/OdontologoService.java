@@ -1,36 +1,40 @@
 package com.example.trabajoIntegrador.service;
 
-import com.example.trabajoIntegrador.model.Odontologo;
-import com.example.trabajoIntegrador.repository.IRepository;
+import com.example.trabajoIntegrador.entity.Odontologo;
+import com.example.trabajoIntegrador.repository.OdontologoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class OdontologoService {
 
-    public IRepository<Odontologo> odontologoRepository;
+    @Autowired
+    OdontologoRepository odontologoRepository;
 
-    public OdontologoService(IRepository<Odontologo> odontologoRepository) {
-        this.odontologoRepository = odontologoRepository;
-    }
 
     public Odontologo agregarOdontologo(Odontologo odontologo){
-        return this.odontologoRepository.agregar(odontologo);
+        return odontologoRepository.save(odontologo);
     }
 
     public List<Odontologo> listarOdontolgos(){
-        List<Odontologo> odontologos = odontologoRepository.listar();
-        return odontologos;
+        return odontologoRepository.findAll();
     }
 
     public Odontologo modificarOdontologo(Odontologo odontologo){
-        return odontologoRepository.modificar(odontologo);
+       if(buscarOdontologo(odontologo.getId()).isPresent()){
+           return odontologoRepository.save(odontologo);
+       }else
+           return null;
     }
 
-    public Boolean eliminarOdontologo(Integer id){
-        return odontologoRepository.eliminar(id);
+    public void eliminarOdontologo(Long id){
+        odontologoRepository.deleteById(id);
     }
 
-    public Odontologo buscarOdontologo(Integer id){
-        return odontologoRepository.buscar(id);
+    public Optional<Odontologo> buscarOdontologo(Long id){
+        return odontologoRepository.findById(id);
     }
 }
