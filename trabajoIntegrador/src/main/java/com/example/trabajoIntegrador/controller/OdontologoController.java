@@ -1,12 +1,12 @@
 package com.example.trabajoIntegrador.controller;
-import com.example.trabajoIntegrador.entity.Odontologo;
-import com.example.trabajoIntegrador.entity.Paciente;
+import com.example.trabajoIntegrador.dto.OdontologoDTO;
 import com.example.trabajoIntegrador.service.OdontologoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -17,24 +17,24 @@ public class OdontologoController {
     private OdontologoService odontologoService;
 
     @GetMapping
-    public ResponseEntity<List<Odontologo>> listarOdontologos() {
+    public ResponseEntity<Collection<OdontologoDTO>> listarOdontologos() {
         return ResponseEntity.ok(odontologoService.listarOdontolgos());
     }
 
     @PostMapping
-    public ResponseEntity<Odontologo> registrarOdontologo(@RequestBody Odontologo odontologo){
-        return ResponseEntity.ok(odontologoService.agregarOdontologo(odontologo));
+    public ResponseEntity<OdontologoDTO> registrarOdontologo(@RequestBody OdontologoDTO odontologoDto){
+        return ResponseEntity.ok(odontologoService.agregarOdontologo(odontologoDto));
     }
 
     @PutMapping
-    public ResponseEntity<Odontologo> modificarOdontologo(@RequestBody Odontologo odontologo){
-        return ResponseEntity.ok(odontologoService.modificarOdontologo(odontologo));
+    public ResponseEntity<OdontologoDTO> modificarOdontologo(@RequestBody OdontologoDTO odontologoDto){
+        return ResponseEntity.ok(odontologoService.modificarOdontologo(odontologoDto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity eliminarOdontologo (@PathVariable Long id) {
         ResponseEntity response = null;
-        if (odontologoService.buscarOdontologo(id).isPresent()){
+        if (odontologoService.buscarOdontologo(id) != null){
             odontologoService.eliminarOdontologo(id);
             response = ResponseEntity.status(HttpStatus.OK).build();
         }else
@@ -44,9 +44,9 @@ public class OdontologoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Odontologo> buscarOdontolgo(@PathVariable Long id){
-        if(odontologoService.buscarOdontologo(id).isPresent()){
-            return ResponseEntity.ok(odontologoService.buscarOdontologo(id).get());
+    public ResponseEntity<OdontologoDTO> buscarOdontolgo(@PathVariable Long id){
+        if(odontologoService.buscarOdontologo(id) != null){
+            return ResponseEntity.ok(odontologoService.buscarOdontologo(id));
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

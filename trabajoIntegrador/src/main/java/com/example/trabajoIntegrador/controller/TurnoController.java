@@ -1,8 +1,8 @@
 package com.example.trabajoIntegrador.controller;
 
-import com.example.trabajoIntegrador.entity.Odontologo;
-import com.example.trabajoIntegrador.entity.Paciente;
-import com.example.trabajoIntegrador.entity.Turno;
+import com.example.trabajoIntegrador.dto.OdontologoDTO;
+import com.example.trabajoIntegrador.dto.PacienteDTO;
+import com.example.trabajoIntegrador.dto.TurnoDTO;
 import com.example.trabajoIntegrador.service.OdontologoService;
 import com.example.trabajoIntegrador.service.PacienteService;
 import com.example.trabajoIntegrador.service.TurnoService;
@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Collection;
+
 
 @RestController
 @RequestMapping("turnos")
@@ -26,17 +26,17 @@ public class TurnoController {
     private OdontologoService odontologoService;
 
     @GetMapping
-    public ResponseEntity<List<Turno>> listarTurnos() {
+    public ResponseEntity<Collection<TurnoDTO>> listarTurnos() {
         return ResponseEntity.ok(turnoService.listarTurnos());
     }
 
     @PostMapping
-    public ResponseEntity<Turno> registrarTurno(@RequestBody Turno turno){
-        ResponseEntity<Turno> response;
-        Optional<Paciente> paciente = pacienteService.buscarPaciente(turno.getPaciente().getId());
-        Optional<Odontologo> odontologo = odontologoService.buscarOdontologo(turno.getOdontologo().getId());
-        if(paciente.isPresent() && odontologo.isPresent()){
-            response = ResponseEntity.ok(turnoService.agregarTurno(turno));
+    public ResponseEntity<TurnoDTO> registrarTurno(@RequestBody TurnoDTO turnoDto){
+        ResponseEntity<TurnoDTO> response;
+        PacienteDTO paciente = pacienteService.buscarPaciente(turnoDto.getPaciente().getId());
+        OdontologoDTO odontologo = odontologoService.buscarOdontologo(turnoDto.getOdontologo().getId());
+        if(paciente != null && odontologo != null){
+            response = ResponseEntity.ok(turnoService.agregarTurno(turnoDto));
         }else{
             response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -44,14 +44,14 @@ public class TurnoController {
     }
 
     @PutMapping
-    public ResponseEntity<Turno> modificarTurno(@RequestBody Turno turno){
-        return ResponseEntity.ok(turnoService.modificarTurno(turno));
+    public ResponseEntity<TurnoDTO> modificarTurno(@RequestBody TurnoDTO turnoDto){
+        return ResponseEntity.ok(turnoService.modificarTurno(turnoDto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity eliminarTurno (@PathVariable Long id) {
         ResponseEntity response = null;
-        if (turnoService.buscarTurno(id).isPresent()){
+        if (turnoService.buscarTurno(id) != null){
             turnoService.eliminarTurno(id);
             response = ResponseEntity.status(HttpStatus.OK).build();
         }else
@@ -61,9 +61,9 @@ public class TurnoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Turno> buscarTurno(@PathVariable Long id){
-        if(turnoService.buscarTurno(id).isPresent()){
-            return ResponseEntity.ok(turnoService.buscarTurno(id).get());
+    public ResponseEntity<TurnoDTO> buscarTurno(@PathVariable Long id){
+        if(turnoService.buscarTurno(id) != null){
+            return ResponseEntity.ok(turnoService.buscarTurno(id));
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
