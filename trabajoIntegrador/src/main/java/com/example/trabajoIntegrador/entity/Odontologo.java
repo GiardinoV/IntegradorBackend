@@ -31,5 +31,4 @@ public class Odontologo {
     public Odontologo() {
     }
 
-
 }
