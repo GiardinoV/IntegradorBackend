@@ -3,7 +3,6 @@ package com.example.trabajoIntegrador.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 
@@ -15,7 +14,7 @@ import javax.persistence.*;
 public class Domicilio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -26,9 +25,6 @@ public class Domicilio {
     private String localidad;
     @Column
     private String provincia;
-
-    @OneToOne(mappedBy = "domicilio")
-    private Paciente paciente;
 
     public Domicilio() {
     }
