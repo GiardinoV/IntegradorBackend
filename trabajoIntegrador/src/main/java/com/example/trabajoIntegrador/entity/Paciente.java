@@ -27,9 +27,8 @@ public class Paciente {
     @Column
     private String apellido;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="domicilio_id", referencedColumnName = "id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Domicilio domicilio;
 
     @Column
@@ -45,4 +44,12 @@ public class Paciente {
     public Paciente() {
     }
 
+    public Paciente(String nombre, String apellido, Domicilio domicilio, int dni, LocalDate fechaIngreso, Set<Turno> turnos) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.domicilio = domicilio;
+        this.dni = dni;
+        this.fechaIngreso = fechaIngreso;
+        this.turnos = turnos;
+    }
 }

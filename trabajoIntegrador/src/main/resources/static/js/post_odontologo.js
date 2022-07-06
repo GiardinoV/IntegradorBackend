@@ -1,6 +1,6 @@
 window.addEventListener('load', function () {
 
-    const formulario = document.querySelector('#add_new_student');
+    const formulario = document.querySelector('#agregar_odontologo');
     formulario.addEventListener('submit', function (event) {
         event.preventDefault();
         const formData = {

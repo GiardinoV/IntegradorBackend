@@ -9,17 +9,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="\js\post_odontologo.js"></script>
-</head>
-<body>
-<div class="container">
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="/listaOdontologo.html">Listado Odontologos</a>
-            <a class="nav-link" href="/altaOdontologo.html">Alta Odontologo</a>
-        </li>
-    </ul>
+    <script type="text/javascript" src="\construccion.html"></script>
 
-    <hr>
-</div>
+</head>
+<body class="bg-secondary bg-gradient">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <p class="navbar-brand">Clinica<b>Odontologica</b></p>
+    <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+        <div class="navbar-nav">
+            <div class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Odontologos</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/listaOdontologo.html">Listado Odontologos</a>
+                    <a class="dropdown-item" href="/altaOdontologo.html">Alta Odontologo</a>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-nav">
+            <div class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Pacientes</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/construccion.html">Listado Pacientes</a>
+                    <a class="dropdown-item" href="/construccion.html">Alta Paciente</a>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-nav">
+            <div class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Turnos</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/construccion.html">Listado Turnos</a>
+                    <a class="dropdown-item" href="/construccion.html">Generar Turno</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-heart-pulse-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.475 9C2.702 10.84 4.779 12.871 8 15c3.221-2.129 5.298-4.16 6.525-6H12a.5.5 0 0 1-.464-.314l-1.457-3.642-1.598 5.593a.5.5 0 0 1-.945.049L5.889 6.568l-1.473 2.21A.5.5 0 0 1 4 9H1.475ZM.879 8C-2.426 1.68 4.41-2 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C11.59-2 18.426 1.68 15.12 8h-2.783l-1.874-4.686a.5.5 0 0 0-.945.049L7.921 8.956 6.464 5.314a.5.5 0 0 0-.88-.091L3.732 8H.88Z"/>
+    </svg>
+</nav>
 </body>
 </html>

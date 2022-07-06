@@ -19,19 +19,23 @@ public class Turno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name="paciente_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Paciente paciente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name="odontologo_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Odontologo odontologo;
 
     @Column
     private LocalDate fecha;
 
     public Turno() {
+    }
+
+    public Turno(Paciente paciente, Odontologo odontologo, LocalDate fecha) {
+        this.paciente = paciente;
+        this.odontologo = odontologo;
+        this.fecha = fecha;
     }
 }

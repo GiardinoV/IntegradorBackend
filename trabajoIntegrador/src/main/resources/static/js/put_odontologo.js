@@ -1,11 +1,11 @@
 window.addEventListener('load', function () {
-    const formulario = document.querySelector('#update_student_form');
-    formulario.addEventListener('submit', function (event) {
-        let studentId = document.querySelector('#student_id').value;
+    const formulario = document.querySelector('#actualizar_odontologo_form');
+    formulario.addEventListener('click', function (event) {
         const formData = {
-            id: document.querySelector('#student_id').value,
-            name: document.querySelector('#nombre').value,
-            lastname: document.querySelector('#apellido').value,
+            id: document.querySelector('#odontologo_id').value,
+            nombre: document.querySelector('#nombre').value,
+            apellido: document.querySelector('#apellido').value,
+            matricula: document.querySelector('#matricula').value,
 
         };
         const url = '/odontologos';
@@ -30,12 +30,13 @@ window.addEventListener('load', function () {
           fetch(url,settings)
           .then(response => response.json())
           .then(data => {
-              let student = data;
-              document.querySelector('#student_id').value = student.id;
-              document.querySelector('#nombre').value = student.name;
-              document.querySelector('#apellido').value = student.lastname;
+              let odontologo = data;
+              document.querySelector('#odontologo_id').value = odontologo.id;
+              document.querySelector('#nombre').value = odontologo.nombre;
+              document.querySelector('#apellido').value = odontologo.apellido;
+              document.querySelector('#matricula').value = odontologo.matricula;
 
-              document.querySelector('#div_student_updating').style.display = "block";
+              document.querySelector('#div_actualizar_odontologo').style.display = "block";
           }).catch(error => {
               alert("Error: " + error);
           })

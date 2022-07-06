@@ -12,5 +12,4 @@ public class DomicilioDTO {
     private String numero;
     private String localidad;
     private String provincia;
-    private Paciente paciente;
 }

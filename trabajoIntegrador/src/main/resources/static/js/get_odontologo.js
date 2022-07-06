@@ -9,8 +9,8 @@ window.addEventListener('load', function () {
   fetch(url,settings)
   .then(response => response.json())
   .then(data => {
-     for(odontologo of data){
-
+     const dataOrdenada = data.sort(function(a, b){return a.id-b.id})
+     for(odontologo of dataOrdenada){
        let deleteButton = '<button' +
                                   ' id=' + '\"' + 'btn_delete_' + odontologo.id + '\"' +
                                   ' type="button" onclick="deleteBy('+odontologo.id+')" class="btn btn-danger btn_delete">' +
@@ -24,13 +24,14 @@ window.addEventListener('load', function () {
                                   '</button>';
 
       let tr_id = 'tr_' + odontologo.id;
-      let studentRow = '<tr id=\"' + tr_id + "\"" + '>' +
+      let odontologoRow = '<tr id=\"' + tr_id + "\"" + '>' +
                 '<td>' + get_More_Info_Btn + '</td>' +
-                '<td class=\"td_first_name\">' + odontologo.name.toUpperCase() + '</td>' +
-                '<td class=\"td_last_name\">' + odontologo.lastname.toUpperCase() + '</td>' +
+                '<td>' + odontologo.nombre.toUpperCase() + '</td>' +
+                '<td>' + odontologo.apellido.toUpperCase() + '</td>' +
+                '<td>' + odontologo.matricula.toUpperCase() + '</td>' +
                 '<td>' + deleteButton + '</td>' +
                 '</tr>';
-      $('#studentTable tbody').append(studentRow);
+      $('#tablaOdontologo tbody').append(odontologoRow);
     };
 
 })
