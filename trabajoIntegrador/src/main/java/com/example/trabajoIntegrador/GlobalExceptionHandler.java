@@ -8,9 +8,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.apache.log4j.*;
 
 @ControllerAdvice
-public class Excepciones {
+public class GlobalExceptionHandler {
 
-    private static final Logger logger = Logger.getLogger(Excepciones.class);
+    private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> errores(Exception ex, WebRequest req){

@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @ToString
 @Getter
@@ -30,12 +31,16 @@ public class Turno {
     @Column
     private LocalDate fecha;
 
+    @Column
+    private LocalTime hora;
+
     public Turno() {
     }
 
-    public Turno(Paciente paciente, Odontologo odontologo, LocalDate fecha) {
+    public Turno(Paciente paciente, Odontologo odontologo, LocalDate fecha, LocalTime hora) {
         this.paciente = paciente;
         this.odontologo = odontologo;
         this.fecha = fecha;
+        this.hora = hora;
     }
 }

@@ -32,6 +32,7 @@ window.addEventListener('load', function () {
                 '<td>' + paciente.apellido.toUpperCase() + '</td>' +
                 '<td>' + paciente.dni.toUpperCase() + '</td>' +
                 '<td>' + paciente.domicilio.toUpperCase() + '</td>' +
+                '<td>' + paciente.fechaIngreso.toUpperCase() + '</td>' +
                 '<td>' + deleteButton + '</td>' +
                 '</tr>';
       $('#tablaPaciente tbody').append(pacienteRow);
